@@ -12,7 +12,6 @@ struct ManageAttendeesView: View {
     
     var body: some View {
         VStack {
-            
             if event.hostAttendees.isEmpty {
                 Text("No hosts yet.")
             } else {
@@ -34,7 +33,7 @@ struct ManageAttendeesView: View {
                     .fontWeight(.semibold)
                 
                 List {
-                    ForEach(event.attendees) { attendee in
+                    ForEach(event.regularAttendees) { attendee in
                         EditableAttendeeCardView(attendee: attendee, eventID: event.id)
                     }
                 }

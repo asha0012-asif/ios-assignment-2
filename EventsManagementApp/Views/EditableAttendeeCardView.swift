@@ -61,6 +61,7 @@ struct EditableAttendeeCardView: View {
                     .default(Text("Make Host")) {
                         eventsViewModel.toggleAttendeeHostStatus(for: attendee, in: eventID)
                     },
+                    .cancel(Text("Cancel")),
                     .destructive(Text("Remove Attendee")) {
                         eventsViewModel.removeAttendee(attendee: attendee, from: eventID)
                     }

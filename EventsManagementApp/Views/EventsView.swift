@@ -13,6 +13,14 @@ struct EventsView: View {
     
     @State private var selectedSegment: Int = 0
     
+    private var upcomingEvents: [Event] {
+        return eventsViewModel.events.filter { $0.startDate > Date() }
+    }
+    
+    private var pastEvents: [Event] {
+        return eventsViewModel.events.filter { $0.startDate < Date() }
+    }
+    
     var body: some View {
         VStack(spacing: 16) {
             HStack {
@@ -40,18 +48,27 @@ struct EventsView: View {
                 .padding(.horizontal, 24)
                 
                 if selectedSegment == 0 {
-                    if eventsViewModel.events.isEmpty {
+                    if upcomingEvents.isEmpty {
                         Text("No upcoming events")
                     } else {
                         List {
-                            ForEach(eventsViewModel.events) { event in
+                            ForEach(upcomingEvents) { event in
                                 EventCardView(event: event)
                             }
                         }
                         .listStyle(.plain)
                     }
                 } else {
-                    Text("No past events")
+                    if pastEvents.isEmpty {
+                        Text("No past events")
+                    } else {
+                        List {
+                            ForEach(pastEvents) { event in
+                                EventCardView(event: event)
+                            }
+                        }
+                        .listStyle(.plain)
+                    }
                 }
             }
 
