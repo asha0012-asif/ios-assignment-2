@@ -12,10 +12,12 @@ struct ProfileView: View {
     
     var body: some View {
         VStack {
-            HStack() {
-                Image(systemName: "square.and.pencil")
-                    .imageScale(.large)
-                    .foregroundStyle(.blue)
+            HStack {
+                NavigationLink(destination: EditProfileView()) {
+                    Image(systemName: "square.and.pencil")
+                        .imageScale(.large)
+                        .foregroundStyle(.blue)
+                }
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             

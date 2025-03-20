@@ -10,6 +10,7 @@ import Foundation
 struct User: Identifiable {
     let id: UUID = UUID()
     var firstName: String
+    var middleName: String?
     var lastName: String
     var avatar: String?
     var isHost: Bool
@@ -18,6 +19,6 @@ struct User: Identifiable {
     var bio: String?
     
     var fullName: String {
-        return "\(firstName) \(lastName)"
+       return middleName != nil ? "\(firstName) \(middleName!) \(lastName)" : "\(firstName) \(lastName)"
     }
 }
