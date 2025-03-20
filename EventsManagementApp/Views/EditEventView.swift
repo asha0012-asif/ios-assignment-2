@@ -115,6 +115,13 @@ struct EditEventView: View {
                     }
                 }
                 
+                Button {
+                    eventsViewModel.cancelEvent(eventID: currentEvent.id)
+                    dismiss()
+                } label: {
+                    Text("Cancel Event")
+                        .foregroundStyle(.red)
+                }
             }
         }
         .navigationTitle(Text("Edit Event"))

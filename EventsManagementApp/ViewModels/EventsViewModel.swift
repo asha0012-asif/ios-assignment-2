@@ -14,6 +14,10 @@ class EventsViewModel: ObservableObject {
         events.append(newEvent)
     }
     
+    func cancelEvent(eventID: UUID) {
+        events.removeAll(where: { $0.id == eventID })
+    }
+    
     func addAttendee(attendee: Attendee, to eventID: UUID) {
         if let index = events.firstIndex(where: { $0.id == eventID }) {
             events[index].attendees.append(attendee)
