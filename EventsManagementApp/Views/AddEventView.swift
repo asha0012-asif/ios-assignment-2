@@ -90,15 +90,16 @@ struct AddEventView: View {
                 }
                 
                 Section {
-                    NavigationLink(destination: Text("AddAttendeesView")) {
-                        Text("Attendees")
+                    NavigationLink(destination: ManageAttendeesView()) {
+                        HStack {
+                            Text("Manage Attendees")
+                                .foregroundStyle(.black)
+                        }
                     }
                 }
                 
                 Section {
                     Button {
-                        print("Added New Event")
-                        
                         var event = Event(name: eventName, startDate: startDate, endDate: endDate, location: location, description: eventDescription, attendees: [Attendee(firstName: "Mohamed", lastName: "Halawani"), Attendee(firstName: "Tony", lastName: "Davidson")])
                         
                         if let eventImage {

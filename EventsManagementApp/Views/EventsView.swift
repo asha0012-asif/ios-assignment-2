@@ -43,7 +43,6 @@ struct EventsView: View {
                     if eventsViewModel.events.isEmpty {
                         Text("No upcoming events")
                     } else {
-                        
                         List {
                             ForEach(eventsViewModel.events) { event in
                                 EventCardView(event: event)
@@ -51,7 +50,6 @@ struct EventsView: View {
                         }
                         .listStyle(.plain)
                     }
-                    
                 } else {
                     Text("No past events")
                 }
