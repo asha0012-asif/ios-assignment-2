@@ -12,7 +12,7 @@ struct AddAttendeeView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var eventsViewModel: EventsViewModel
     
-    var eventId: UUID
+    var eventID: UUID
     
     @State var firstName: String = ""
     @State var middleName: String = ""
@@ -97,7 +97,7 @@ struct AddAttendeeView: View {
                             }
                         }
                         
-//                        eventsViewModel.addAttendee(attendee: attendee, to: event)
+                        eventsViewModel.addAttendee(attendee: attendee, to: eventID)
                     
                         dismiss()
                     } label: {

@@ -12,17 +12,21 @@ struct ManageAttendeesView: View {
     
     var body: some View {
         VStack {
-            List {
-                ForEach(event.attendees) { attendee in
-                    AttendeeCardView(attendee: attendee)
+            if event.attendees.isEmpty {
+                Text("No attendees yet.")
+            } else {
+                List {
+                    ForEach(event.attendees) { attendee in
+                        AttendeeCardView(attendee: attendee)
+                    }
                 }
+                .listStyle(.plain)
             }
-            .listStyle(.plain)
         }
         .navigationTitle(Text("Manage Attendees"))
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: AddAttendeeView(eventId: event.id)) {
+                NavigationLink(destination: AddAttendeeView(eventID: event.id)) {
                     Image(systemName: "plus.square")
                         .imageScale(.large)
                         .foregroundStyle(.blue)
@@ -33,5 +37,5 @@ struct ManageAttendeesView: View {
 }
 
 #Preview {
-//    ManageAttendeesView(event: )
+    ManageAttendeesView(event: Event(id: UUID(), name: "My Event", startDate: Date(), location: "Location", description: "Description"))
 }
