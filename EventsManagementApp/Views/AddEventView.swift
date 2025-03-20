@@ -101,6 +101,12 @@ struct AddEventView: View {
                         
                         var event = Event(name: eventName, startDate: startDate, endDate: endDate, location: location, description: eventDescription, attendees: [Attendee(firstName: "Mohamed", lastName: "Halawani"), Attendee(firstName: "Tony", lastName: "Davidson")])
                         
+                        if let eventImage {
+                            if let imageData = eventImage.jpegData(compressionQuality: 0.8) {
+                                event.backgroundImage = imageData.base64EncodedString()
+                            }
+                        }
+                        
                         eventsViewModel.createEvent(newEvent: event)
                         
                         dismiss()

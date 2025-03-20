@@ -15,4 +15,6 @@ struct Event: Identifiable {
     var location: String
     var description: String
     var attendees: [Attendee]
+    
+    var backgroundImage: String? = nil
 }

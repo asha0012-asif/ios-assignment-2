@@ -29,6 +29,7 @@ struct EventsView: View {
                 }
             }
             .frame(maxWidth: .infinity)
+            .padding(EdgeInsets(top: 24, leading: 24, bottom: 0, trailing: 24))
             
             VStack(spacing: 16) {
                 Picker("Select Option", selection: $selectedSegment) {
@@ -36,17 +37,19 @@ struct EventsView: View {
                     Text("Past").tag(1)
                 }
                 .pickerStyle(SegmentedPickerStyle())
+                .padding(.horizontal, 24)
                 
                 if selectedSegment == 0 {
                     if eventsViewModel.events.isEmpty {
                         Text("No upcoming events")
                     } else {
-                        ForEach(eventsViewModel.events) { event in
-                            VStack {
-                                Text(event.name)
-                                Text(event.location)
+                        
+                        List {
+                            ForEach(eventsViewModel.events) { event in
+                                EventCardView(event: event)
                             }
                         }
+                        .listStyle(.plain)
                     }
                     
                 } else {
@@ -56,7 +59,6 @@ struct EventsView: View {
 
             Spacer()
         }
-        .padding(24)
     }
 }
 
