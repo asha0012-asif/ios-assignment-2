@@ -53,15 +53,27 @@ struct EventDetailsView: View {
                     .frame(height: 4)
                 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Attending")
-                        .font(.title3)
-                        .fontWeight(.semibold)
+                    if currentEvent.hostAttendees.isEmpty {
+                        Text("No hosts yet.")
+                    } else {
+                        Text(currentEvent.hostAttendees.count == 1 ? "Host" : "Hosts")
+                            .fontWeight(.semibold)
+                        
+                        List {
+                            ForEach(currentEvent.hostAttendees) { attendee in
+                                AttendeeCardView(attendee: attendee, eventID: currentEvent.id)
+                            }
+                        }
+                        .listStyle(.plain)
+                    }
                     
                     if currentEvent.attendees.isEmpty {
                         Text("No attendees yet.")
                     } else {
+                        Text("Attendees")
+                        
                         List {
-                            ForEach(currentEvent.attendees) { attendee in
+                            ForEach(currentEvent.regularAttendees) { attendee in
                                 AttendeeCardView(attendee: attendee, eventID: currentEvent.id)
                             }
                         }

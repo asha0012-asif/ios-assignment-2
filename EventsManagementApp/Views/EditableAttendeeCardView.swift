@@ -11,6 +11,8 @@ import PhotosUI
 struct EditableAttendeeCardView: View {
     @EnvironmentObject var eventsViewModel: EventsViewModel
     
+    @State var showActionSheet: Bool = false
+    
     var attendee: Attendee
     var eventID: UUID
     
@@ -33,6 +35,8 @@ struct EditableAttendeeCardView: View {
                     .clipShape(.circle)
             }
             
+            Spacer()
+            
             VStack(alignment: .leading, spacing: 8) {
                 Text(attendee.fullName)
                     .font(.headline)
@@ -40,13 +44,28 @@ struct EditableAttendeeCardView: View {
                     .font(.caption)
             }
             
+            Spacer()
+            
             Button {
-                eventsViewModel.removeAttendee(attendee: attendee, from: eventID)
+                showActionSheet.toggle()
             } label: {
-                Image(systemName: "minus.circle")
+                Image(systemName: "ellipsis")
                     .imageScale(.large)
                     .foregroundStyle(.blue)
             }
+        }
+        .actionSheet(isPresented: $showActionSheet) {
+            ActionSheet(
+                title: Text("Choose an Action"),
+                buttons: [
+                    .default(Text("Make Host")) {
+                        eventsViewModel.toggleAttendeeHostStatus(for: attendee, in: eventID)
+                    },
+                    .destructive(Text("Remove Attendee")) {
+                        eventsViewModel.removeAttendee(attendee: attendee, from: eventID)
+                    }
+                ]
+            )
         }
     }
 }

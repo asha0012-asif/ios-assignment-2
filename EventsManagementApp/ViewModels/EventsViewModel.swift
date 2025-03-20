@@ -29,4 +29,12 @@ class EventsViewModel: ObservableObject {
             events[index].attendees.removeAll(where: {$0.id == attendee.id })
         }
     }
+    
+    func toggleAttendeeHostStatus(for attendee: Attendee, in eventID: UUID) {
+        if let eventIndex = events.firstIndex(where: { $0.id == eventID }) {
+            if let attendeeIndex = events[eventIndex].attendees.firstIndex(where: { $0.id == attendee.id }) {
+                events[eventIndex].attendees[attendeeIndex].isHost.toggle()
+            }
+        }
+    }
 }

@@ -17,4 +17,13 @@ struct Event: Identifiable {
     var attendees: [Attendee] = []
     
     var backgroundImage: String? = nil
+    
+    // COMPUTED PROPERTIES
+    var hostAttendees: [Attendee] {
+        attendees.filter { $0.isHost }
+    }
+    
+    var regularAttendees: [Attendee] {
+        attendees.filter { !$0.isHost }
+    }
 }
