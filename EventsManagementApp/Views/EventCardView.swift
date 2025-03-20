@@ -52,5 +52,5 @@ struct EventCardView: View {
 }
 
 #Preview {
-    EventCardView(event: Event(name: "eventName", startDate: Date(), endDate: Date(), location: "location", description: "eventDescription", attendees: [Attendee(firstName: "Mohamed", lastName: "Halawani"), Attendee(firstName: "Tony", lastName: "Davidson")]))
+    EventCardView(event: Event(id: UUID(), name: "eventName", startDate: Date(), endDate: Date(), location: "location", description: "eventDescription"))
 }

@@ -10,7 +10,9 @@ import PhotosUI
 
 struct AddAttendeeView: View {
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var profileViewModel: ProfileViewModel
+    @EnvironmentObject var eventsViewModel: EventsViewModel
+    
+    var eventId: UUID
     
     @State var firstName: String = ""
     @State var middleName: String = ""
@@ -79,23 +81,23 @@ struct AddAttendeeView: View {
                 
                 Section {
                     Button {
-                        var user = User(firstName: firstName, lastName: lastName, location: location)
+                        var attendee = Attendee(firstName: firstName, lastName: lastName, location: location)
                         
                         if middleName != "" {
-                            user.middleName = middleName
+                            attendee.middleName = middleName
                         }
                         
                         if bio != "" {
-                            user.bio = bio
+                            attendee.bio = bio
                         }
                         
                         if let avatarImage {
                             if let imageData = avatarImage.jpegData(compressionQuality: 0.8) {
-                                user.avatar = imageData.base64EncodedString()
+                                attendee.avatar = imageData.base64EncodedString()
                             }
                         }
                         
-                        profileViewModel.saveUser(user)
+//                        eventsViewModel.addAttendee(attendee: attendee, to: event)
                     
                         dismiss()
                     } label: {
@@ -119,20 +121,9 @@ struct AddAttendeeView: View {
                 photosPickerItem = nil
             }
         }
-        .onAppear {
-            firstName = profileViewModel.user?.firstName ?? ""
-            middleName = profileViewModel.user?.middleName ?? ""
-            lastName = profileViewModel.user?.lastName ?? ""
-            location = profileViewModel.user?.location ?? ""
-            bio = profileViewModel.user?.bio ?? ""
-            
-            if let imageData = profileViewModel.user?.avatar {
-                avatarImage = ImageUtils.decodeBase64ToImage(base64String: imageData)
-            }
-        }
     }
 }
 
 #Preview {
-    AddAttendeeView()
+//    AddAttendeeView()
 }

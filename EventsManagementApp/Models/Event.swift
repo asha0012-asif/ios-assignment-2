@@ -8,13 +8,13 @@
 import Foundation
 
 struct Event: Identifiable {
-    let id: UUID = UUID()
+    let id: UUID 
     var name: String
     var startDate: Date
     var endDate: Date?
     var location: String
     var description: String
-    var attendees: [Attendee]
+    var attendees: [Attendee] = []
     
     var backgroundImage: String? = nil
 }

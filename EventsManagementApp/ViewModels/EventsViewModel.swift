@@ -13,4 +13,10 @@ class EventsViewModel: ObservableObject {
     func createEvent(newEvent: Event) {
         events.append(newEvent)
     }
+    
+    func addAttendee(attendee: Attendee, to event: Event) {
+        if let index = events.firstIndex(where: { $0.id == event.id }) {
+            events[index].attendees.append(attendee)
+        }
+    }
 }

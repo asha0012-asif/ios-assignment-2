@@ -6,24 +6,34 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct AttendeeCardView: View {
-    var name: String = ""
-    var location: String = ""
+    var attendee: Attendee
     
     var body: some View {
         HStack {
-            Image(systemName: "person.circle.fill")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 64, height: 64)
-                .foregroundStyle(.gray)
-                .clipShape(.circle)
+            if let imageData = attendee.avatar,
+               let image = ImageUtils.decodeBase64ToImage(base64String: imageData) {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 64, height: 64)
+                    .foregroundStyle(.gray)
+                    .clipShape(.circle)
+            } else {
+                Image(systemName: "person.circle.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 64, height: 64)
+                    .foregroundStyle(.gray)
+                    .clipShape(.circle)
+            }
             
             VStack(alignment: .leading, spacing: 8) {
-                Text(name)
+                Text(attendee.fullName)
                     .font(.headline)
-                Text(location)
+                Text(attendee.location)
                     .font(.caption)
             }
         }
@@ -31,5 +41,5 @@ struct AttendeeCardView: View {
 }
 
 #Preview {
-    AttendeeCardView()
+    AttendeeCardView(attendee: Attendee(firstName: "Mohamed", middleName: "El", lastName: "Halawani", location: "Algonquin College"))
 }

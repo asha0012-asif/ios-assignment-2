@@ -25,6 +25,8 @@ struct AddEventView: View {
     @State private var eventImage: UIImage?
     @State private var photosPickerItem: PhotosPickerItem?
     
+    private var eventId: UUID = UUID()
+    
     var body: some View {
         VStack {
             Form {
@@ -90,17 +92,8 @@ struct AddEventView: View {
                 }
                 
                 Section {
-                    NavigationLink(destination: ManageAttendeesView()) {
-                        HStack {
-                            Text("Manage Attendees")
-                                .foregroundStyle(.black)
-                        }
-                    }
-                }
-                
-                Section {
                     Button {
-                        var event = Event(name: eventName, startDate: startDate, endDate: endDate, location: location, description: eventDescription, attendees: [Attendee(firstName: "Mohamed", lastName: "Halawani"), Attendee(firstName: "Tony", lastName: "Davidson")])
+                        var event = Event(id: eventId, name: eventName, startDate: startDate, endDate: endDate, location: location, description: eventDescription)
                         
                         if let eventImage {
                             if let imageData = eventImage.jpegData(compressionQuality: 0.8) {

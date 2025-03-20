@@ -8,14 +8,21 @@
 import SwiftUI
 
 struct ManageAttendeesView: View {
+    var event: Event
+    
     var body: some View {
         VStack {
-            Text("Manage Attendees")
+            List {
+                ForEach(event.attendees) { attendee in
+                    AttendeeCardView(attendee: attendee)
+                }
+            }
+            .listStyle(.plain)
         }
         .navigationTitle(Text("Manage Attendees"))
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: AddAttendeeView()) {
+                NavigationLink(destination: AddAttendeeView(eventId: event.id)) {
                     Image(systemName: "plus.square")
                         .imageScale(.large)
                         .foregroundStyle(.blue)
@@ -26,5 +33,5 @@ struct ManageAttendeesView: View {
 }
 
 #Preview {
-    ManageAttendeesView()
+//    ManageAttendeesView(event: )
 }
