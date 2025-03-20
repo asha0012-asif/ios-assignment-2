@@ -8,11 +8,11 @@
 import Foundation
 
 struct Event: Identifiable {
-    let id: UUID
+    let id: UUID = UUID()
     var name: String
     var startDate: Date
     var endDate: Date?
     var location: String
-    var note: String
+    var description: String
     var attendees: [Attendee]
 }

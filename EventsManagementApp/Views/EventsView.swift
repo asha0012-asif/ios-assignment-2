@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EventsView: View {
+    @EnvironmentObject var eventsViewModel: EventsViewModel
     @EnvironmentObject var profileViewModel: ProfileViewModel
     
     @State private var selectedSegment: Int = 0
@@ -37,7 +38,17 @@ struct EventsView: View {
                 .pickerStyle(SegmentedPickerStyle())
                 
                 if selectedSegment == 0 {
-                    Text("No upcoming events")
+                    if eventsViewModel.events.isEmpty {
+                        Text("No upcoming events")
+                    } else {
+                        ForEach(eventsViewModel.events) { event in
+                            VStack {
+                                Text(event.name)
+                                Text(event.location)
+                            }
+                        }
+                    }
+                    
                 } else {
                     Text("No past events")
                 }

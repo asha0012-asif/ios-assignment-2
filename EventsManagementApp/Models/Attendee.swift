@@ -8,9 +8,9 @@
 import Foundation
 
 struct Attendee: Identifiable {
-    let id: UUID
+    let id: UUID = UUID()
     var firstName: String
     var lastName: String
-    var avatar: String?
-    var isHost: Bool
+    var avatar: String? = nil
+    var isHost: Bool = false
 }

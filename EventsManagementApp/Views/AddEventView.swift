@@ -10,6 +10,7 @@ import PhotosUI
 
 struct AddEventView: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var eventsViewModel: EventsViewModel
     
     @State var eventName: String = ""
     @State var location: String = ""
@@ -21,7 +22,7 @@ struct AddEventView: View {
     @State var eventDescription: String = ""
     @State var attendees: [Attendee]? = nil
     
-    @State private var avatarImage: UIImage?
+    @State private var eventImage: UIImage?
     @State private var photosPickerItem: PhotosPickerItem?
     
     var body: some View {
@@ -30,8 +31,8 @@ struct AddEventView: View {
                 Section {
                     VStack {
                         PhotosPicker(selection: $photosPickerItem, matching: .images) {
-                            if let avatarImage {
-                                Image(uiImage: avatarImage)
+                            if let eventImage {
+                                Image(uiImage: eventImage)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 384, height: 288)
@@ -98,6 +99,10 @@ struct AddEventView: View {
                     Button {
                         print("Added New Event")
                         
+                        var event = Event(name: eventName, startDate: startDate, endDate: endDate, location: location, description: eventDescription, attendees: [Attendee(firstName: "Mohamed", lastName: "Halawani"), Attendee(firstName: "Tony", lastName: "Davidson")])
+                        
+                        eventsViewModel.createEvent(newEvent: event)
+                        
                         dismiss()
                     } label: {
                         Text("Create Event")
@@ -106,13 +111,13 @@ struct AddEventView: View {
                 
             }
         }
-        .navigationTitle(Text("Add Event"))
+        .navigationTitle(Text("Create New Event"))
         .onChange(of: photosPickerItem) { _, _ in
             Task {
                 if let photosPickerItem,
                    let data = try? await photosPickerItem.loadTransferable(type: Data.self) {
                     if let image = UIImage(data: data) {
-                        avatarImage = image
+                        eventImage = image
                     }
                 }
                 

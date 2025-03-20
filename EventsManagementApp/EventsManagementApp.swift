@@ -9,12 +9,9 @@ import SwiftUI
 
 @main
 struct EventsManagementApp: App {
-    @StateObject var profileViewModel = ProfileViewModel()
-    
     var body: some Scene {
         WindowGroup {
             TabsView()
-                .environmentObject(profileViewModel)
         }
     }
 }

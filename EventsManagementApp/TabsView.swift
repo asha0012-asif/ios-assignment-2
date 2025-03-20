@@ -8,18 +8,24 @@
 import SwiftUI
 
 struct TabsView: View {
+    @StateObject var profileViewModel = ProfileViewModel()
+    @StateObject var eventsViewModel = EventsViewModel()
+    
     var body: some View {
         TabView {
             Tab("Events", systemImage: "calendar") {
                 NavigationView {
                     EventsView()
                 }
+                .environmentObject(eventsViewModel)
+                .environmentObject(profileViewModel)
             }
             
             Tab("Profile", systemImage: "person") {
                 NavigationView {
                     ProfileView()
                 }
+                .environmentObject(profileViewModel)
             }
         }
     }
