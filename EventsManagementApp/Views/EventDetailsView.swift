@@ -52,10 +52,6 @@ struct EventDetailsView: View {
                 Divider()
                     .frame(height: 4)
                 
-                NavigationLink(destination: ManageAttendeesView(event: currentEvent)) {
-                    Text("Manage Attendees")
-                }
-                
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Attending")
                         .font(.title3)
@@ -77,6 +73,15 @@ struct EventDetailsView: View {
             }
         }
         .navigationTitle(currentEvent.name)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink(destination: EditEventView(currentEvent: currentEvent)) {
+                    Image(systemName: "square.and.pencil")
+                        .imageScale(.large)
+                        .foregroundStyle(.blue)
+                }
+            }
+        }
         .padding(24)
     }
 }
