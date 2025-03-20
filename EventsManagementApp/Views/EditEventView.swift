@@ -93,7 +93,11 @@ struct EditEventView: View {
                 
                 Section {
                     NavigationLink(destination: ManageAttendeesView(event: currentEvent)) {
-                        Text("Manage Attendees")
+                        if currentEvent.attendees.count == 0 {
+                            Text("Manage Attendees")
+                        } else {
+                            Text("Manage Attendees (\(currentEvent.attendees.count))")
+                        }
                     }
                 }
                 
@@ -112,15 +116,19 @@ struct EditEventView: View {
                         dismiss()
                     } label: {
                         Text("Create Event")
+                            .frame(maxWidth: .infinity)
+                            .multilineTextAlignment(.center)
                     }
-                }
-                
-                Button {
-                    eventsViewModel.cancelEvent(eventID: currentEvent.id)
-                    dismiss()
-                } label: {
-                    Text("Cancel Event")
-                        .foregroundStyle(.red)
+                    
+                    Button {
+                        eventsViewModel.cancelEvent(eventID: currentEvent.id)
+                        dismiss()
+                    } label: {
+                        Text("Cancel Event")
+                            .frame(maxWidth: .infinity)
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(.red)
+                    }
                 }
             }
         }

@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 
-struct AttendeeCardView: View {
+struct EditableAttendeeCardView: View {
     @EnvironmentObject var eventsViewModel: EventsViewModel
     
     var attendee: Attendee
@@ -38,6 +38,14 @@ struct AttendeeCardView: View {
                     .font(.headline)
                 Text(attendee.location)
                     .font(.caption)
+            }
+            
+            Button {
+                eventsViewModel.removeAttendee(attendee: attendee, from: eventID)
+            } label: {
+                Image(systemName: "minus.circle")
+                    .imageScale(.large)
+                    .foregroundStyle(.blue)
             }
         }
     }
