@@ -9,7 +9,10 @@ import SwiftUI
 import PhotosUI
 
 struct AttendeeCardView: View {
+    @EnvironmentObject var eventsViewModel: EventsViewModel
+    
     var attendee: Attendee
+    var eventID: UUID
     
     var body: some View {
         HStack {
@@ -36,10 +39,18 @@ struct AttendeeCardView: View {
                 Text(attendee.location)
                     .font(.caption)
             }
+            
+            Button {
+                eventsViewModel.removeAttendee(attendee: attendee, from: eventID)
+            } label: {
+                Image(systemName: "minus.circle")
+                    .imageScale(.large)
+                    .foregroundStyle(.blue)
+            }
         }
     }
 }
 
 #Preview {
-    AttendeeCardView(attendee: Attendee(firstName: "Mohamed", middleName: "El", lastName: "Halawani", location: "Algonquin College"))
+    AttendeeCardView(attendee: Attendee(firstName: "Mohamed", middleName: "El", lastName: "Halawani", location: "Algonquin College"), eventID: UUID())
 }

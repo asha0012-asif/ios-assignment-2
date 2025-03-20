@@ -17,7 +17,7 @@ struct ManageAttendeesView: View {
             } else {
                 List {
                     ForEach(event.attendees) { attendee in
-                        AttendeeCardView(attendee: attendee)
+                        AttendeeCardView(attendee: attendee, eventID: event.id)
                     }
                 }
                 .listStyle(.plain)
