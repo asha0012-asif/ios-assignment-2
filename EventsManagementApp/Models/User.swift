@@ -8,9 +8,16 @@
 import Foundation
 
 struct User: Identifiable {
-    let id: UUID
+    let id: UUID = UUID()
     var firstName: String
     var lastName: String
     var avatar: String?
     var isHost: Bool
+    
+    var location: String
+    var bio: String?
+    
+    var fullName: String {
+        return "\(firstName) \(lastName)"
+    }
 }

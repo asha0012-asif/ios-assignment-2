@@ -18,7 +18,7 @@ struct TabsView: View {
             
             Tab("Profile", systemImage: "person") {
                 NavigationView {
-                    Text("Profile")
+                    ProfileView()
                 }
             }
         }
