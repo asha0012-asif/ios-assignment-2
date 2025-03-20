@@ -21,7 +21,7 @@ struct EventsView: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: Text("AddEventView")) {
+                NavigationLink(destination: AddEventView()) {
                     Image(systemName: "plus.square")
                         .imageScale(.large)
                         .foregroundStyle(.blue)
