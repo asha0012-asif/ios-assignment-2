@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
@@ -16,9 +17,38 @@ struct EditProfileView: View {
     @State var location: String = ""
     @State var bio: String = ""
     
+    @State private var avatarImage: UIImage?
+    @State private var photosPickerItem: PhotosPickerItem?
+    
     var body: some View {
         VStack {
             Form {
+                Section {
+                    VStack {
+                        PhotosPicker(selection: $photosPickerItem, matching: .images) {
+                            if let avatarImage {
+                                Image(uiImage: avatarImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 128, height: 128)
+                                    .clipShape(.circle)
+                            } else {
+                                Image(systemName: "person.circle.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 128, height: 128)
+                                    .foregroundStyle(.gray)
+                                    .clipShape(.circle)
+                            }
+                        }
+                        
+                        Text("Choose Image")
+                            .foregroundStyle(.blue)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                }
+                .listRowBackground(Color.clear)
+                
                 Section {
                     TextField(text: $firstName) {
                         Text("First Name")
@@ -69,6 +99,18 @@ struct EditProfileView: View {
             }
         }
         .navigationTitle(Text("Edit Profile"))
+        .onChange(of: photosPickerItem) { _, _ in
+            Task {
+                if let photosPickerItem,
+                   let data = try? await photosPickerItem.loadTransferable(type: Data.self) {
+                    if let image = UIImage(data: data) {
+                        avatarImage = image
+                    }
+                }
+                
+                photosPickerItem = nil
+            }
+        }
     }
 }
 
