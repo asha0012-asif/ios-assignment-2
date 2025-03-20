@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  TabsView.swift
 //  EventsManagementApp
 //
 //  Created by Asif Ashadullah on 2025-03-20.

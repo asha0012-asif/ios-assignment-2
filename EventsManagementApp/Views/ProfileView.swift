@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    private var user = User(firstName: "Asif", lastName: "Ashadullah", avatar: "YES", isHost: true, location: "Ottawa, ON", bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+    @EnvironmentObject var profileViewModel: ProfileViewModel
     
     var body: some View {
         VStack {
@@ -23,19 +23,28 @@ struct ProfileView: View {
             
             VStack(alignment: .leading, spacing: 24) {
                 HStack(spacing: 24) {
-                    Image(systemName: "person.circle.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 128, height: 128)
-                        .foregroundStyle(.gray)
-                        .clipShape(.circle)
+                    if let imageData = profileViewModel.user?.avatar,
+                       let image = ImageUtils.decodeBase64ToImage(base64String: imageData) {
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 128, height: 128)
+                            .clipShape(.circle)
+                    } else {
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 128, height: 128)
+                            .foregroundStyle(.gray)
+                            .clipShape(.circle)
+                    }
                     
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(user.fullName)
+                        Text(profileViewModel.user?.fullName ?? "[FULL_NAME]")
                             .font(.title2)
                             .fontWeight(.bold)
                         
-                        Text(user.location)
+                        Text(profileViewModel.user?.location ?? "[LOCATION]")
                             .font(.title3)
                     }
                 }
@@ -43,7 +52,7 @@ struct ProfileView: View {
                 Divider()
                     .frame(height: 4)
                 
-                Text(user.bio ?? "")
+                Text(profileViewModel.user?.bio ?? "[BIO]")
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             

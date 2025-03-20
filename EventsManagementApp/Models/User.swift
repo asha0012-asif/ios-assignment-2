@@ -12,8 +12,8 @@ struct User: Identifiable {
     var firstName: String
     var middleName: String?
     var lastName: String
-    var avatar: String?
-    var isHost: Bool
+    var avatar: String? = nil
+    var isHost: Bool = true
     
     var location: String
     var bio: String?

@@ -10,6 +10,7 @@ import PhotosUI
 
 struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var profileViewModel: ProfileViewModel
     
     @State var firstName: String = ""
     @State var middleName: String = ""
@@ -78,7 +79,24 @@ struct EditProfileView: View {
                 
                 Section {
                     Button {
-                        print("SAVED")
+                        var user = User(firstName: firstName, lastName: lastName, location: location)
+                        
+                        if middleName != "" {
+                            user.middleName = middleName
+                        }
+                        
+                        if bio != "" {
+                            user.bio = bio
+                        }
+                        
+                        if let avatarImage {
+                            if let imageData = avatarImage.jpegData(compressionQuality: 0.8) {
+                                user.avatar = imageData.base64EncodedString()
+                            }
+                        }
+                        
+                        profileViewModel.saveUser(user)
+                    
                         dismiss()
                     } label: {
                         Text("Save Profile")
@@ -87,7 +105,7 @@ struct EditProfileView: View {
                     }
                     
                     Button {
-                        print("DELETED")
+                        profileViewModel.deleteUser()
                         dismiss()
                     } label: {
                         Text("Delete Profile")
@@ -109,6 +127,17 @@ struct EditProfileView: View {
                 }
                 
                 photosPickerItem = nil
+            }
+        }
+        .onAppear {
+            firstName = profileViewModel.user?.firstName ?? ""
+            middleName = profileViewModel.user?.middleName ?? ""
+            lastName = profileViewModel.user?.lastName ?? ""
+            location = profileViewModel.user?.location ?? ""
+            bio = profileViewModel.user?.bio ?? ""
+            
+            if let imageData = profileViewModel.user?.avatar {
+                avatarImage = ImageUtils.decodeBase64ToImage(base64String: imageData)
             }
         }
     }
