@@ -58,7 +58,7 @@ struct EditableAttendeeCardView: View {
             ActionSheet(
                 title: Text("Choose an Action"),
                 buttons: [
-                    .default(Text("Make Host")) {
+                    .default(Text("Toggle Host Status")) {
                         eventsViewModel.toggleAttendeeHostStatus(for: attendee, in: eventID)
                     },
                     .cancel(Text("Cancel")),

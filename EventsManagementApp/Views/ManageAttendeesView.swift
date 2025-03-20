@@ -11,44 +11,43 @@ struct ManageAttendeesView: View {
     var event: Event
     
     var body: some View {
-        VStack {
-            if event.hostAttendees.isEmpty {
-                Text("No hosts yet.")
-            } else {
-                Text(event.hostAttendees.count == 1 ? "Host" : "Hosts")
-                    .fontWeight(.semibold)
-                
-                List {
+        ScrollView {
+            VStack(spacing: 24) {
+                if event.hostAttendees.isEmpty {
+                    Text("No hosts yet.")
+                        .fontWeight(.semibold)
+                } else {
+                    Text(event.hostAttendees.count == 1 ? "Host" : "Hosts")
+                        .fontWeight(.semibold)
+                    
                     ForEach(event.hostAttendees) { attendee in
                         EditableAttendeeCardView(attendee: attendee, eventID: event.id)
                     }
                 }
-                .listStyle(.plain)
-            }
-            
-            if event.regularAttendees.isEmpty {
-                Text("No attendees yet.")
-            } else {
-                Text("Attendees")
-                    .fontWeight(.semibold)
                 
-                List {
+                if event.regularAttendees.isEmpty {
+                    Text("No attendees yet.")
+                        .fontWeight(.semibold)
+                } else {
+                    Text("Attendees")
+                        .fontWeight(.semibold)
+                    
                     ForEach(event.regularAttendees) { attendee in
                         EditableAttendeeCardView(attendee: attendee, eventID: event.id)
                     }
                 }
-                .listStyle(.plain)
             }
-        }
-        .navigationTitle(Text("Manage Attendees"))
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: AddAttendeeView(eventID: event.id)) {
-                    Image(systemName: "plus.square")
-                        .imageScale(.large)
-                        .foregroundStyle(.blue)
+            .navigationTitle(Text("Manage Attendees"))
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: AddAttendeeView(eventID: event.id)) {
+                        Image(systemName: "plus.square")
+                            .imageScale(.large)
+                            .foregroundStyle(.blue)
+                    }
                 }
             }
+            .padding(24)
         }
     }
 }

@@ -14,87 +14,84 @@ struct EventDetailsView: View {
     var currentEvent: Event
     
     var body: some View {
-        VStack(alignment: .leading) {
-            if let imageData = currentEvent.backgroundImage,
-               let image = ImageUtils.decodeBase64ToImage(base64String: imageData) {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 360, height: 270)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-            } else {
-                Image(systemName: "photo.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 360, height: 270)
-                    .foregroundStyle(.gray)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-            }
-            
-            VStack(alignment: .leading, spacing: 16) {
-                
-                VStack(alignment: .leading) {
-                    Text(currentEvent.name)
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                    
-                    if currentEvent.endDate == currentEvent.startDate {
-                        Text("\(currentEvent.startDate, style: .date)")
-                    } else {
-                        Text("\(currentEvent.startDate, style: .date) to \(currentEvent.endDate!, style: .date)")
-                    }
-                    
-                    Text(currentEvent.location)
+        
+        ScrollView {
+            VStack(alignment: .leading) {
+                if let imageData = currentEvent.backgroundImage,
+                   let image = ImageUtils.decodeBase64ToImage(base64String: imageData) {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 360, height: 270)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                } else {
+                    Image(systemName: "photo.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 360, height: 270)
+                        .foregroundStyle(.gray)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
                 }
                 
-                Text(currentEvent.description)
-                
-                Divider()
-                    .frame(height: 4)
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    if currentEvent.hostAttendees.isEmpty {
-                        Text("No hosts yet.")
-                    } else {
-                        Text(currentEvent.hostAttendees.count == 1 ? "Host" : "Hosts")
+                VStack(alignment: .leading, spacing: 16) {
+                    
+                    VStack(alignment: .leading) {
+                        Text(currentEvent.name)
+                            .font(.title2)
                             .fontWeight(.semibold)
                         
-                        List {
+                        if currentEvent.endDate == currentEvent.startDate {
+                            Text("\(currentEvent.startDate, style: .date)")
+                        } else {
+                            Text("\(currentEvent.startDate, style: .date) to \(currentEvent.endDate!, style: .date)")
+                        }
+                        
+                        Text(currentEvent.location)
+                    }
+                    
+                    Text(currentEvent.description)
+                    
+                    Divider()
+                        .frame(height: 4)
+                    
+                    VStack(alignment: .leading, spacing: 24) {
+                        if currentEvent.hostAttendees.isEmpty {
+                            Text("No hosts yet.")
+                        } else {
+                            Text(currentEvent.hostAttendees.count == 1 ? "Host" : "Hosts")
+                                .fontWeight(.semibold)
+                            
                             ForEach(currentEvent.hostAttendees) { attendee in
                                 AttendeeCardView(attendee: attendee, eventID: currentEvent.id)
                             }
                         }
-                        .listStyle(.plain)
-                    }
-                    
-                    if currentEvent.attendees.isEmpty {
-                        Text("No attendees yet.")
-                    } else {
-                        Text("Attendees")
                         
-                        List {
+                        if currentEvent.attendees.isEmpty {
+                            Text("No attendees yet.")
+                        } else {
+                            Text("Attendees")
+                            
                             ForEach(currentEvent.regularAttendees) { attendee in
                                 AttendeeCardView(attendee: attendee, eventID: currentEvent.id)
                             }
                         }
-                        .listStyle(.plain)
+                    }
+                    
+                    Spacer()
+                }
+            }
+            .navigationTitle(currentEvent.name)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: EditEventView(currentEvent: currentEvent)) {
+                        Image(systemName: "square.and.pencil")
+                            .imageScale(.large)
+                            .foregroundStyle(.blue)
                     }
                 }
-            
-                Spacer()
             }
+            .padding(24)
         }
-        .navigationTitle(currentEvent.name)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: EditEventView(currentEvent: currentEvent)) {
-                    Image(systemName: "square.and.pencil")
-                        .imageScale(.large)
-                        .foregroundStyle(.blue)
-                }
-            }
-        }
-        .padding(24)
     }
 }
 
