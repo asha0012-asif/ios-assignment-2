@@ -12,7 +12,7 @@ struct TabsView: View {
         TabView {
             Tab("Events", systemImage: "calendar") {
                 NavigationView {
-                    Text("Events")
+                    EventsView()
                 }
             }
             
