@@ -12,7 +12,7 @@ struct ManageAttendeesView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 24) {
+            VStack(alignment: .leading, spacing: 24) {
                 if event.hostAttendees.isEmpty {
                     Text("No hosts yet.")
                         .fontWeight(.semibold)
