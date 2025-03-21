@@ -1,4 +1,4 @@
-###### Assignment Status: 🚧 WIP
+###### Assignment Status: 🚧 Complete
 
 # Assignment 2: Events App
 
