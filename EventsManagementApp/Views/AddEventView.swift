@@ -11,6 +11,7 @@ import PhotosUI
 struct AddEventView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var eventsViewModel: EventsViewModel
+    @EnvironmentObject var profileViewModel: ProfileViewModel
     
     @State var eventName: String = ""
     @State var location: String = ""
@@ -101,6 +102,18 @@ struct AddEventView: View {
                             }
                         }
                         
+                        let attendee: Attendee = Attendee(
+                            id: profileViewModel.user.id,
+                            firstName: profileViewModel.user.firstName,
+                            middleName: profileViewModel.user.middleName,
+                            lastName: profileViewModel.user.lastName,
+                            avatar: profileViewModel.user.avatar,
+                            isHost: true,
+                            location: profileViewModel.user.location,
+                            bio: profileViewModel.user.bio
+                        )
+                        
+                        event.attendees.append(attendee)
                         eventsViewModel.createEvent(newEvent: event)
                         
                         dismiss()

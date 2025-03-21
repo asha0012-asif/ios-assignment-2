@@ -23,7 +23,7 @@ struct ProfileView: View {
             
             VStack(alignment: .leading, spacing: 24) {
                 HStack(spacing: 24) {
-                    if let imageData = profileViewModel.user?.avatar,
+                    if let imageData = profileViewModel.user.avatar,
                        let image = ImageUtils.decodeBase64ToImage(base64String: imageData) {
                         Image(uiImage: image)
                             .resizable()
@@ -40,11 +40,11 @@ struct ProfileView: View {
                     }
                     
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(profileViewModel.user?.fullName ?? "[FULL_NAME]")
+                        Text(profileViewModel.user.fullName)
                             .font(.title2)
                             .fontWeight(.bold)
                         
-                        Text(profileViewModel.user?.location ?? "[LOCATION]")
+                        Text(profileViewModel.user.location)
                             .font(.title3)
                     }
                 }
@@ -52,7 +52,7 @@ struct ProfileView: View {
                 Divider()
                     .frame(height: 4)
                 
-                Text(profileViewModel.user?.bio ?? "[BIO]")
+                Text(profileViewModel.user.bio ?? "[BIO]")
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             

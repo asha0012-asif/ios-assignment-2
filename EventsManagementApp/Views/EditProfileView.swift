@@ -130,13 +130,13 @@ struct EditProfileView: View {
             }
         }
         .onAppear {
-            firstName = profileViewModel.user?.firstName ?? ""
-            middleName = profileViewModel.user?.middleName ?? ""
-            lastName = profileViewModel.user?.lastName ?? ""
-            location = profileViewModel.user?.location ?? ""
-            bio = profileViewModel.user?.bio ?? ""
+            firstName = profileViewModel.user.firstName
+            middleName = profileViewModel.user.middleName ?? ""
+            lastName = profileViewModel.user.lastName
+            location = profileViewModel.user.location
+            bio = profileViewModel.user.bio ?? ""
             
-            if let imageData = profileViewModel.user?.avatar {
+            if let imageData = profileViewModel.user.avatar {
                 avatarImage = ImageUtils.decodeBase64ToImage(base64String: imageData)
             }
         }

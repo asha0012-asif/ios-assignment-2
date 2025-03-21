@@ -24,7 +24,7 @@ struct EventsView: View {
     var body: some View {
         VStack(spacing: 16) {
             HStack {
-                Text("Welcome \(profileViewModel.user?.firstName ?? "[USER]")")
+                Text("Welcome \(profileViewModel.user.firstName)")
                     .font(.title2)
                     .fontWeight(.bold)
                 
