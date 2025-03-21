@@ -94,7 +94,7 @@ struct AddEventView: View {
                 
                 Section {
                     Button {
-                        var event = Event(id: eventId, name: eventName, startDate: startDate, endDate: endDate, location: location, description: eventDescription)
+                        var event = Event(id: eventId, name: eventName, startDate: startDate, endDate: endDate, location: location, description: eventDescription, isAllDay: isAllDay)
                         
                         if let eventImage {
                             if let imageData = eventImage.jpegData(compressionQuality: 0.8) {

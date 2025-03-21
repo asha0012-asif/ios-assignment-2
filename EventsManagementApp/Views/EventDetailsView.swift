@@ -40,11 +40,7 @@ struct EventDetailsView: View {
                             .font(.title2)
                             .fontWeight(.semibold)
                         
-                        if currentEvent.endDate == currentEvent.startDate {
-                            Text("\(currentEvent.startDate, style: .date)")
-                        } else {
-                            Text("\(currentEvent.startDate, style: .date) to \(currentEvent.endDate!, style: .date)")
-                        }
+                        Text(currentEvent.formattedDateRange)
                         
                         Text(currentEvent.location)
                     }

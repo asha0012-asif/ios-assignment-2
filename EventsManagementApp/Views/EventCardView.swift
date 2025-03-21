@@ -44,6 +44,10 @@ struct EventCardView: View {
                     Text(event.name)
                         .fontWeight(.semibold)
                         .foregroundStyle(.white)
+                    
+                    Text(event.formattedDateRange)
+                        .foregroundStyle(.white)
+                    
                     Text(event.location)
                         .foregroundStyle(.white)
                 }
