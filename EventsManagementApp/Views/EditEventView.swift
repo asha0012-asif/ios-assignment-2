@@ -111,17 +111,17 @@ struct EditEventView: View {
                             }
                         }
                         
-                        eventsViewModel.createEvent(newEvent: event)
+                        eventsViewModel.updateEvent(with: currentEvent.id, to: event)
                         
                         dismiss()
                     } label: {
-                        Text("Create Event")
+                        Text("Update Event")
                             .frame(maxWidth: .infinity)
                             .multilineTextAlignment(.center)
                     }
                     
                     Button {
-                        eventsViewModel.cancelEvent(eventID: currentEvent.id)
+                        eventsViewModel.cancelEvent(with: currentEvent.id)
                         dismiss()
                     } label: {
                         Text("Cancel Event")

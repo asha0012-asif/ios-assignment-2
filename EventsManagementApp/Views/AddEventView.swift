@@ -114,7 +114,7 @@ struct AddEventView: View {
                         )
                         
                         event.attendees.append(attendee)
-                        eventsViewModel.createEvent(newEvent: event)
+                        eventsViewModel.createEvent(event)
                         
                         dismiss()
                     } label: {

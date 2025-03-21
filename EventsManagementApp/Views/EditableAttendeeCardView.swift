@@ -63,7 +63,7 @@ struct EditableAttendeeCardView: View {
                     },
                     .cancel(Text("Cancel")),
                     .destructive(Text("Remove Attendee")) {
-                        eventsViewModel.removeAttendee(attendee: attendee, from: eventID)
+                        eventsViewModel.removeAttendee(attendee, from: eventID)
                     }
                 ]
             )

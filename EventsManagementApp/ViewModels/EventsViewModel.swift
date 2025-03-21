@@ -10,21 +10,27 @@ import Foundation
 class EventsViewModel: ObservableObject {
     @Published var events: [Event] = []
     
-    func createEvent(newEvent: Event) {
+    func createEvent(_ newEvent: Event) {
         events.append(newEvent)
     }
     
-    func cancelEvent(eventID: UUID) {
+    func updateEvent(with eventID: UUID, to updatedEvent: Event) {
+        if let index = events.firstIndex(where: { $0.id == eventID }) {
+            events[index] = updatedEvent
+        }
+    }
+    
+    func cancelEvent(with eventID: UUID) {
         events.removeAll(where: { $0.id == eventID })
     }
     
-    func addAttendee(attendee: Attendee, to eventID: UUID) {
+    func addAttendee(_ attendee: Attendee, to eventID: UUID) {
         if let index = events.firstIndex(where: { $0.id == eventID }) {
             events[index].attendees.append(attendee)
         }
     }
     
-    func removeAttendee(attendee: Attendee, from eventID: UUID) {
+    func removeAttendee(_ attendee: Attendee, from eventID: UUID) {
         if let index = events.firstIndex(where: { $0.id == eventID }) {
             events[index].attendees.removeAll(where: {$0.id == attendee.id })
         }

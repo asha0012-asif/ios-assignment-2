@@ -97,7 +97,7 @@ struct AddAttendeeView: View {
                             }
                         }
                         
-                        eventsViewModel.addAttendee(attendee: attendee, to: eventID)
+                        eventsViewModel.addAttendee(attendee, to: eventID)
                     
                         dismiss()
                     } label: {
